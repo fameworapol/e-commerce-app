@@ -1,0 +1,16 @@
+.login-container{
+    width:40vw ;
+    padding-top: 20px;
+}
+h1{
+    font-size: 30px;
+}
+.login-container .head{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+button[type="submit"]{
+    
+}

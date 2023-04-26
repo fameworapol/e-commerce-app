@@ -1,0 +1,75 @@
+.cart-container{
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+.cart-container .details{
+    width: 50vw ;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.cart-container .details .item-check{
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    font-size: 15px;
+}
+.cart-container .details .item-check img{
+    height: 150px;
+}
+.cart-container .details .item-check p:nth-child(3){
+    color: #ed6600;
+    font-weight: bold;
+}
+.cart-container .pay{
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.cart-container .pay form .banking{
+    display: flex;
+    flex-direction: column;
+}
+.cart-container .pay .coupon{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.cart-container .pay .coupon div{
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+}
+.cart-container .pay .coupon div button{
+    width: 20%;
+    height: 100%;
+    background-color: #199cb7;
+}
+.cart-container .pay .coupon div input{
+    width: 80%;
+    border-color: #199cb7;
+}
+.cart-container .summary .summarydata{
+    display: flex;
+    justify-content: space-between;
+}
+.final{
+    color: #ed6600;
+    font-weight: bolder;
+}
+
+/*Complete*/
+.complete-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}

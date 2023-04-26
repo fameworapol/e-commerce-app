@@ -1,0 +1,19 @@
+.Nav-container{
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+}
+.Nav-container img{
+    width: 250px;
+}
+.Nav-container .search{
+    width: 55vw;
+    height: 20px;
+}
+.Nav-container a{
+    text-decoration: none;
+    color: #2e2b2b;
+}
