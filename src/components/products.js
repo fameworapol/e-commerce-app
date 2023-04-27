@@ -1,5 +1,9 @@
 import Ietms from "./item"
 import '../style/itemstyle.css'
+import { useLocation,Link } from "react-router-dom"
+import { GoogleLogin, GoogleLogout } from 'react-google-login'
+import { useContext } from "react"
+import DataContext from "./data"
 export default function Product() {
     const data = [
         {
@@ -73,11 +77,18 @@ export default function Product() {
             rate:"4.4",
         },
     ]
-    return (
-        <div className="product-container">
-            {data.map((elm)=>{
-                return <Ietms id={elm.id} description={elm.description} price={elm.price} rate={elm.rate} img={elm.img}/>
-            })}
-        </div>
-    )
+    const {"name":name,"img":img,"email":email} = useContext(DataContext)
+        return (
+            <div className="product-container">
+                <div className="profile">
+                    <h4>{name}</h4>
+                    <Link to={"/profiledetail"}><img src={img}/></Link> 
+                </div>
+                <div className="product">
+                    {data.map((elm)=>{
+                        return <Ietms id={elm.id} description={elm.description} price={elm.price} rate={elm.rate} img={elm.img}/>
+                    })}
+                </div>
+            </div>
+        )
 }

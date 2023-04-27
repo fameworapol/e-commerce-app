@@ -17,8 +17,13 @@
 .item-container .detail{
     margin-left: 10px;
 }
-
 .product-container{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.product{
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
@@ -27,4 +32,16 @@
     gap: 20px;
     justify-content: center;
     align-items: flex-start;
+}
+.product-container .profile{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.product-container .profile img{
+    width: 60px;
+}
+.product-container .profile h4{
+    color: black;
 }

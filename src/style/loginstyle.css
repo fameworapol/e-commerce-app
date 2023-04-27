@@ -10,7 +10,8 @@ h1{
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 30px;
+
 }
-button[type="submit"]{
-    
+.login-container form{
+    padding-bottom: 20px;
 }
