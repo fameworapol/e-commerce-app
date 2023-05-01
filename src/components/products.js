@@ -2,7 +2,7 @@ import Ietms from "./item"
 import '../style/itemstyle.css'
 import { useLocation,Link } from "react-router-dom"
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
-import { useContext } from "react"
+import { useContext, useState,useEffect } from "react"
 import DataContext from "./data"
 export default function Product() {
     const data = [
@@ -77,12 +77,19 @@ export default function Product() {
             rate:"4.4",
         },
     ]
-    const {"name":name,"img":img,"email":email} = useContext(DataContext)
+        const [name, setname] = useState("")
+        useEffect(() => {
+            const storedName = localStorage.getItem('name');
+            if (storedName) {
+                setname(storedName);
+            }
+        }, [])
+        
         return (
             <div className="product-container">
                 <div className="profile">
                     <h4>{name}</h4>
-                    <Link to={"/profiledetail"}><img src={img}/></Link> 
+                    <Link to={"/"}><img src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"}/></Link> 
                 </div>
                 <div className="product">
                     {data.map((elm)=>{

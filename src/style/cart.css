@@ -67,6 +67,7 @@
 
 /*Complete*/
 .complete-container{
+    flex-direction: column;
     height: 80vh;
     margin-top: 20px;
     display: flex;

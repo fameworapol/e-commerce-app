@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 import '../style/style.css'
+import Swal from "sweetalert2";
 
 const RegisterPage = () => {
   const [name, setName] = useState("")
@@ -30,6 +31,13 @@ const RegisterPage = () => {
     setEmail("")
     setPassword("")
     setComplete(true)
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'เข้าสู่ระบบเรียบร้อย',
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
 
   return (
@@ -52,6 +60,10 @@ const RegisterPage = () => {
             <label for="password" class="form-label">รหัสผ่าน</label>
             <input type="password" class="form-control" placeholder="รหัสผ่านอย่างน้อย 8 ตัวพร้อมตัวเลข ตัวอักษร และอักขระ" name="password" onChange={inputPassword} value={password
             }/>
+          </div>
+          <div class="mb-3">
+            <label for="confirm_password" class="form-label">ยืนยันรหัสผ่าน</label>
+            <input type="password" class="form-control" placeholder="รหัสผ่านอย่างน้อย 8 ตัวพร้อมตัวเลข ตัวอักษร และอักขระ" name="confirm_password"/>
           </div>
 
           <div className="group">

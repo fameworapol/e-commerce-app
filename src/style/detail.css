@@ -4,6 +4,7 @@
     justify-content: space-around;
     align-items: flex-start;
     background-color: #fff;
+    font-size: 16px;
 }
 .detail-container img{
     width: 30vw;

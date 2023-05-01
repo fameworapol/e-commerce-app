@@ -1,9 +1,11 @@
-import { Link , Navigate} from "react-router-dom";
+import { Link , Navigate, redirect} from "react-router-dom";
 import { Redirect } from 'react-router-dom';
 import '../style/loginstyle.css'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import { gapi } from 'gapi-script'
 import { useEffect, useState } from 'react';
+// ES6 Modules or TypeScript
+import Swal from "sweetalert2";
 
 export default function LoginPage(props) {
   console.log(props.name)
@@ -22,6 +24,11 @@ export default function LoginPage(props) {
   function onSuccess(res) {
     setProfile(res.profileObj)
   }
+
+  function onFailure(res) {
+    console.log("failed", res);
+  }
+
   const [email_local, setemail_local] = useState("")
   const [password_local, setpassword_local] = useState("")
   const [name_local, setname_local] = useState("")
@@ -32,9 +39,6 @@ export default function LoginPage(props) {
     setname_local(localStorage.getItem("name"))
   }, []);
 
-  function onFailure(res) {
-    console.log("failed", res);
-  }
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -47,16 +51,31 @@ export default function LoginPage(props) {
   function submitData(event) {
     event.preventDefault()
     if(email==email_local && password==password_local){
-      props.profileinfo(name_local,"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",email)
       setEmail("")
       setPassword("")
       setComplete(true)
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'เข้าสู่ระบบเรียบร้อย',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'อีเมลหรือรหัสผ่านของคุณไม่ถูกต้อง',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
   }  
 
   function savaData(name,img,email) {
-    //props.profileinfo(name,img,email)
-    props.profileinfo(name,img,email)
+    localStorage.setItem("name",name)
+    localStorage.setItem("email",email)
+    localStorage.setItem("password","")
     return (
       <GoogleLogout clientId={clientId} buttonText='Log out' onLogoutSuccess={logOut}/>
     )
@@ -64,6 +83,7 @@ export default function LoginPage(props) {
   function logOut() {
     setProfile(null)
   }
+  
   return (
     <div className="login-container">
       <div className="head" >
@@ -75,14 +95,11 @@ export default function LoginPage(props) {
           <label for="email" class="form-label">อีเมล</label>
           <input type="email" class="form-control" placeholder="กรุณาระบุอีเมล" name="email" onChange={inputEmail} value={email}/>
         </div>
-
         <div class="mb-3">
           <label for="password" class="form-label">รหัสผ่าน</label>
           <input type="password" class="form-control" placeholder="รหัสผ่านอย่างน้อย 8 ตัวพร้อมตัวเลข ตัวอักษร และอักขระ" name="password" onChange={inputPassword} value={password}/>
         </div>
         <button type="submit">เข้าสู่ระบบ</button>
-        {complete ? <Navigate to={"product"}/> : <p></p> }
-        {/**/}
         {profile ? savaData(profile.name,profile.imageUrl,profile.email) : (
           <GoogleLogin
             clientId={clientId}
@@ -93,8 +110,8 @@ export default function LoginPage(props) {
             isSignedIn={true}
           />
         )}
+        {complete ? <Navigate to={"/product"}/>:<p></p>}
       </form>
-      
     </div>
   )
 }

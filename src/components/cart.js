@@ -1,9 +1,19 @@
 import { Link, useLocation } from "react-router-dom"
 import '../style/cart.css'
+import Swal from "sweetalert2"
 
 export default function Cart() {
     const location = useLocation()
     const data = location.state.data
+    function complte() {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'คำสั่งซื้อเรียบร้อยแล้ว',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
     return (
         <div className="cart-container">
             <div className="details">
@@ -60,7 +70,7 @@ export default function Cart() {
                             <p className="final">฿{parseFloat(data.price) + 20.00}.00</p>
                         </div>
                     </div>
-                    <Link to={"/complete"}><button type="submit">สั่งซื้อ</button></Link>
+                    <Link to={"/complete"}><button type="submit" onClick={complte}>สั่งซื้อ</button></Link>
                 </div>
             </div>
         </div>
