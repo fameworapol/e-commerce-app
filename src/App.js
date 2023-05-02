@@ -10,6 +10,8 @@ import Detail from "./components/details";
 import CompletePayment from "./components/completePayment";
 import DataContext from "./components/data";
 import ProfileDetail from "./components/profileDetail";
+import GLogin from "./components/googleLogin";
+import PayBank from "./components/payBank";
 
 function App() {
   const [name, setName] = useState("")
@@ -36,13 +38,15 @@ function App() {
           <div className="content">
             {/*ส่วนนี้คือแสดงตลอด*/}
             <Routes>
-              <Route path='/register' element={<RegisterPage />} />
-              <Route path='/cart' element={<Cart />} />
-              <Route path='/' element={<LoginPage profileinfo={profileInfo} />} />
-              <Route path='/product/detail' element={<Detail />} />
-              <Route path='/complete' element={<CompletePayment />} />
-              <Route path='/product' element={<Product />} />
-              <Route path='/profiledetail' element={<ProfileDetail/>} />
+              <Route path='/register' element={<RegisterPage id={1}/>}/>
+              <Route path='/cart' element={<Cart />}/>
+              <Route path='/' element={<LoginPage profileinfo={profileInfo}/>} />
+              <Route path='/product/detail' element={<Detail />}/>
+              <Route path='/complete' element={<CompletePayment/>} />
+              <Route path='/product' element={<Product/>}/>
+              <Route path='/profiledetail' element={<ProfileDetail/>}/>
+              <Route path='/g-login' element={<GLogin/>}/>
+              <Route path='/pay' element={<PayBank/>}/>
             </Routes>
           </div>
         </BrowserRouter>

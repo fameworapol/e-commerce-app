@@ -6,6 +6,7 @@ import { gapi } from 'gapi-script'
 import { useEffect, useState } from 'react';
 // ES6 Modules or TypeScript
 import Swal from "sweetalert2";
+import Product from "./products";
 
 export default function LoginPage(props) {
   console.log(props.name)
@@ -77,7 +78,9 @@ export default function LoginPage(props) {
     localStorage.setItem("email",email)
     localStorage.setItem("password","")
     return (
-      <GoogleLogout clientId={clientId} buttonText='Log out' onLogoutSuccess={logOut}/>
+      <div>
+        <GoogleLogout clientId={clientId} buttonText='Log out' onLogoutSuccess={logOut} />
+      </div>
     )
   }
   function logOut() {

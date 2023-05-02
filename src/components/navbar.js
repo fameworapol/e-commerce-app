@@ -27,7 +27,7 @@ export default function Nav() {
             if (result.isConfirmed) {
                 Swal.fire(
                     'Deleted!',
-                    'ออกสู่ระบบเรียบร้อย',
+                    'ออกจากระบบเรียบร้อย',
                     'success'
                 )
                 localStorage.removeItem("name");

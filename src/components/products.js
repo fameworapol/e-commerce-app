@@ -4,7 +4,7 @@ import { useLocation,Link } from "react-router-dom"
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import { useContext, useState,useEffect } from "react"
 import DataContext from "./data"
-export default function Product() {
+export default function Product(props) {
     const data = [
         {
             id:1,
@@ -89,7 +89,8 @@ export default function Product() {
             <div className="product-container">
                 <div className="profile">
                     <h4>{name}</h4>
-                    <Link to={"/"}><img src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"}/></Link> 
+                    <Link to={"/"}><img src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"}/></Link>
+                    {props.clientId ? <GoogleLogout clientId={props.clientId} buttonText='Log out' onLogoutSuccess={props.logOut}/>:<p></p>} 
                 </div>
                 <div className="product">
                     {data.map((elm)=>{
