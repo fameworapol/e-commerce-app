@@ -1,6 +1,7 @@
 .payBank-container{
     margin-top: 20px;
     width: 30vw;
+    height: 87vh;
 }
 .payBank-container .card-detail{
     display: flex;

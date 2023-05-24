@@ -39,9 +39,9 @@ function App() {
             {/*ส่วนนี้คือแสดงตลอด*/}
             <Routes>
               <Route path='/register' element={<RegisterPage id={1}/>}/>
-              <Route path='/cart' element={<Cart />}/>
+              <Route path='/cart/:id' element={<Cart />}/>
               <Route path='/' element={<LoginPage profileinfo={profileInfo}/>} />
-              <Route path='/product/detail' element={<Detail />}/>
+              <Route path='/detail/:id' element={<Detail />}/>
               <Route path='/complete' element={<CompletePayment/>} />
               <Route path='/product' element={<Product/>}/>
               <Route path='/profiledetail' element={<ProfileDetail/>}/>

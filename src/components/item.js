@@ -2,18 +2,8 @@ import { Link } from 'react-router-dom'
 import '../style/itemstyle.css'
 export default function Ietms(props) {
     return (
-        <Link to={"\detail"} style={{ textDecoration: "none", color: "black" }}
-            state={
-                {
-                    data: {
-                        description: props.description,
-                        img: props.img,
-                        price: props.price,
-                        rate: props.rate,
-                        id: props.id
-                    }
-                }
-            }
+        <Link to={`/detail/${props.id}`} style={{ textDecoration: "none", color: "black" }}
+            
         >
             <div className="item-container">
                 <img src={props.img} />

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 // ES6 Modules or TypeScript
 import Swal from "sweetalert2";
 import Product from "./products";
+import axios from "axios";
 
 export default function LoginPage(props) {
   console.log(props.name)
@@ -22,24 +23,7 @@ export default function LoginPage(props) {
     gapi.load("client:auth2", inintClient)
   }, [])
 
-  function onSuccess(res) {
-    setProfile(res.profileObj)
-  }
-
-  function onFailure(res) {
-    console.log("failed", res);
-  }
-
-  const [email_local, setemail_local] = useState("")
-  const [password_local, setpassword_local] = useState("")
-  const [name_local, setname_local] = useState("")
   const [complete, setComplete] = useState(false)
-  useEffect(() => {
-    setemail_local(localStorage.getItem("email"))
-    setpassword_local(localStorage.getItem("password"))
-    setname_local(localStorage.getItem("name"))
-  }, []);
-
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -49,20 +33,28 @@ export default function LoginPage(props) {
   function inputPassword(e){
     setPassword(e.target.value)
   }
+
   function submitData(event) {
     event.preventDefault()
-    if(email==email_local && password==password_local){
-      setEmail("")
-      setPassword("")
-      setComplete(true)
+    sendDataLogin(email,password)
+    
+  }
+
+  function sendDataLogin(email,password) {
+    axios.post("http://localhost:8000/profile/login",{email:email,password:password}).then(response=>{
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'เข้าสู่ระบบเรียบร้อย',
+        title: response.data.data,
         showConfirmButton: false,
         timer: 1500
       })
-    }else{
+      sessionStorage.setItem("email",response.data.email)
+      sessionStorage.setItem("name",response.data.name)
+      setEmail("");
+      setPassword("");
+      setComplete(true);
+    }).catch(err=>{
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -70,8 +62,8 @@ export default function LoginPage(props) {
         showConfirmButton: false,
         timer: 1500
       })
-    }
-  }  
+    })
+  }
 
   function savaData(name,img,email) {
     localStorage.setItem("name",name)
@@ -90,7 +82,7 @@ export default function LoginPage(props) {
   return (
     <div className="login-container">
       <div className="head" >
-        <h1>ยินดีต้อนรับเข้าสู่ลาซาด้า กรุณาเข้าสู่ระบบ</h1>
+        <h1>ยินดีต้อนรับเข้าสู่ลาซาโด้ กรุณาเข้าสู่ระบบ</h1>
         <p>สมาชิกใหม่? <a style={{ color: "blue" }}><Link to="/register">ลงทะเบียน</Link></a> ที่นี่</p>
       </div>
       <form onSubmit={submitData}>
@@ -103,7 +95,7 @@ export default function LoginPage(props) {
           <input type="password" class="form-control" placeholder="รหัสผ่านอย่างน้อย 8 ตัวพร้อมตัวเลข ตัวอักษร และอักขระ" name="password" onChange={inputPassword} value={password}/>
         </div>
         <button type="submit">เข้าสู่ระบบ</button>
-        {profile ? savaData(profile.name,profile.imageUrl,profile.email) : (
+        {/* {profile ? savaData(profile.name,profile.imageUrl,profile.email) : (
           <GoogleLogin
             clientId={clientId}
             buttonText='Sign in with Google'
@@ -112,7 +104,7 @@ export default function LoginPage(props) {
             cookiePolicy={'single_host_origin'}
             isSignedIn={true}
           />
-        )}
+        )} */}
         {complete ? <Navigate to={"/product"}/>:<p></p>}
       </form>
     </div>

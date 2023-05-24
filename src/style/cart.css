@@ -2,6 +2,7 @@
     margin-top: 20px;
     display: flex;
     gap: 20px;
+    height: 87vh;
 }
 .cart-container .details{
     width: 50vw ;

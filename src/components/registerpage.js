@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 import '../style/style.css'
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const RegisterPage = () => {
   const [name, setName] = useState("")
   const [email,setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [confirm_password, setconfirm_password] = useState("")
+  const [date, setdate] = useState("")
+  const [gender, setgender] = useState("")
   const [complete, setComplete] = useState(false)
   
   function inputName(e) {
@@ -19,32 +22,53 @@ const RegisterPage = () => {
   function inputPassword(e){
     setPassword(e.target.value)
   }
+  function inputConfirm(e){
+    setconfirm_password(e.target.value)
+  }
+  function inputDate(e) {
+    setdate(e.target.value)
+  }
+  function inputGender(e){
+    setgender(e.target.value)
+  }
+
   function saveData(event) {
     event.preventDefault()
-    const data = {
-      name:name,email:email,password:password
+    if(password===confirm_password && password.length>=8){
+      const data = {
+        name:name,email:email,password:password,date:date,gender:gender
+      }
+      axios.post("http://localhost:8000/profile/createProfile",data).then(response=>{
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'บันทึกข้อมูลเรียบร้อย',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }).catch(err=>{
+        console.log(err);
+      })
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'กรุณาตรวจสอบความถูกต้องของข้อมูล',
+        showConfirmButton: false,
+        timer: 1500
+      })
     }
-    localStorage.setItem("name", name);
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
     setName("")
     setEmail("")
     setPassword("")
     setComplete(true)
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'เข้าสู่ระบบเรียบร้อย',
-      showConfirmButton: false,
-      timer: 1500
-    })
   }
 
   return (
       <div className="register-container">
         <div className="head">
-          <h1>สร้างบัญชีลาซาด้า</h1>
-          <p>เป็นสมาชิกอยู่แล้วหรือ? <a style={{ color: "blue" }}><Link to="/login">บันทึกข้อมูล</Link></a> ที่นี่</p>
+          <h1>สร้างบัญชีลาซาโด้</h1>
+          <p>เป็นสมาชิกอยู่แล้วหรือ? <a style={{ color: "blue" }}><Link to="/">เข้าสู่ระบบ</Link></a> ที่นี่</p>
         </div>
         <form onSubmit={saveData}>
           <div class="mb-3">
@@ -63,17 +87,16 @@ const RegisterPage = () => {
           </div>
           <div class="mb-3">
             <label for="confirm_password" class="form-label">ยืนยันรหัสผ่าน</label>
-            <input type="password" class="form-control" placeholder="รหัสผ่านอย่างน้อย 8 ตัวพร้อมตัวเลข ตัวอักษร และอักขระ" name="confirm_password"/>
+            <input type="password" class="form-control" placeholder="รหัสผ่านอย่างน้อย 8 ตัวพร้อมตัวเลข ตัวอักษร และอักขระ" name="confirm_password" onChange={inputConfirm} value={confirm_password}/>
           </div>
-
           <div className="group">
             <div class="birth">
               <label for="date" class="form-label">วันเกิด</label>
-              <input type="date" class="form-control" placeholder="รหัสผ่านอย่างน้อย 8 ตัวพร้อมตัวเลข ตัวอักษร และอักขระ" name="date" />
+              <input type="date" class="form-control" placeholder="รหัสผ่านอย่างน้อย 8 ตัวพร้อมตัวเลข ตัวอักษร และอักขระ" name="date" onChange={inputDate} value={date}/>
             </div>
             <div class="mb-3 gen">
               <label for="gender" class="mb-2">เพศ</label>
-              <select class="form-select">
+              <select class="form-select" onChange={inputGender} value={gender}>
                 <option selected>เลือก</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -85,7 +108,7 @@ const RegisterPage = () => {
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
             <label class="form-check-label" for="flexCheckDefault">
-              รับข้อมูลสิทธิพิเศษ และโปรโมชั่นจากลาซาด้า ผ่านทาง SMS
+              รับข้อมูลสิทธิพิเศษ และโปรโมชั่นจากลาซาโด้ ผ่านทาง SMS
             </label>
           </div>
           <button type="submit">สมัครสมาชิก</button>
